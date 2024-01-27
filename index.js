@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import cors from "cors";
 import userRouter from "./routes/user-route.js";
 import authRouter from "./routes/auth-route.js";
 
@@ -11,8 +12,13 @@ const app = express();
 
 app.use(express.json());
 
+app.use(cors());
+
 app.listen(5000, () => {
   console.log("Server is running on port 5000");
+});
+app.options("*", (req, res, next) => {
+  next();
 });
 
 app.use("/api/user", userRouter);
